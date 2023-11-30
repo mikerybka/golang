@@ -1,13 +1,12 @@
 package golang
 
 import (
-	"os"
 	"os/exec"
+
+	"github.com/mikerybka/util"
 )
 
 func Install(pkg string) error {
 	cmd := exec.Command("go", "install", pkg)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+	return util.Run(cmd)
 }
