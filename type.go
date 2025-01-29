@@ -1,8 +1,6 @@
 package golang
 
 type Type struct {
-	Name string
-
 	IsScalar bool
 	Scalar   *ScalarType
 

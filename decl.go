@@ -1,6 +1,7 @@
 package golang
 
 type Decl struct {
+	Name    string
 	IsVar   bool
 	Var     *Var
 	IsConst bool
