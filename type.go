@@ -16,3 +16,5 @@ type Type struct {
 	IsStruct bool
 	Struct   *StructType
 }
+
+func (t *Type) String(name string, imports *ImportMap) string

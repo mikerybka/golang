@@ -1,6 +1,8 @@
 package golang
 
 type Var struct {
-	Type  string
-	Value string
+	Type  Ident
+	Value Expression
 }
+
+func (v *Var) String(name string, imports *ImportMap) string

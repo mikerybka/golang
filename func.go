@@ -5,3 +5,5 @@ type Func struct {
 	Outputs []Field
 	Body    []Stmt
 }
+
+func (f *Func) String(name string, imports *ImportMap) string
