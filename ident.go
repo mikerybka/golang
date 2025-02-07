@@ -1,6 +1,9 @@
 package golang
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 func NewIdent(s string) *Ident {
 	i := strings.LastIndex(s, ".")
@@ -18,4 +21,12 @@ func NewIdent(s string) *Ident {
 type Ident struct {
 	From string
 	Name string
+}
+
+func (i *Ident) String(imports *ImportMap) string {
+	if i.From == "" {
+		return i.Name
+	}
+	localName := imports.AddImport(i.From)
+	return fmt.Sprintf("%s.%s", localName, i.Name)
 }

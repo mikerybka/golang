@@ -1,9 +1,37 @@
 package golang
 
+import (
+	"bytes"
+	"fmt"
+)
+
 type Func struct {
 	Inputs  []Field
 	Outputs []Field
 	Body    []Stmt
 }
 
-func (f *Func) String(name string, imports *ImportMap) string
+func (f *Func) String(name string, imports *ImportMap) string {
+	buf := bytes.NewBuffer(nil)
+	inputs := ""
+	for i, in := range f.Inputs {
+		if i > 0 {
+			inputs += ", "
+		}
+		inputs += fmt.Sprintf("%s %s", in.Name, in.Type.String(imports))
+	}
+	fmt.Fprintf(buf, "func %s(%s)", name, inputs)
+	if len(f.Outputs) > 0 {
+		outputs := "("
+		for i, out := range f.Outputs {
+			if i > 0 {
+				outputs += ", "
+			}
+			outputs += fmt.Sprintf("%s %s", out.Name, out.Type.String(imports))
+		}
+		outputs += ")"
+		fmt.Fprintf(buf, " %s", f.Outputs[0].Type.Name)
+	}
+	fmt.Fprintf(buf, "}\n")
+	return buf.String()
+}
