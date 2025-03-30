@@ -15,16 +15,16 @@ type Decl struct {
 
 func (d *Decl) String(imports *ImportMap) string {
 	if d.IsVar {
-		return d.Var.String(d.Name, imports)
+		return d.Var.String(imports)
 	}
 	if d.IsConst {
-		return d.Const.String(d.Name, imports)
+		return d.Const.String(imports)
 	}
 	if d.IsType {
-		return d.Type.String(d.Name, imports)
+		return d.Type.String(imports)
 	}
 	if d.IsFunc {
-		return d.Func.String(d.Name, imports)
+		return d.Func.String(imports)
 	}
 	panic("invalid decl")
 }

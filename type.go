@@ -15,19 +15,40 @@ type Type struct {
 
 	IsStruct bool
 	Struct   *StructType
+
+	Methods []Func
 }
 
-func (t *Type) String(name string, imports *ImportMap) string {
+func (t *Type) Name() string {
 	if t.IsScalar {
-		return t.Scalar.String(name, imports)
+		return t.Scalar.Name
+	}
+	if t.IsPointer {
+		return t.Pointer.Name
+	}
+	if t.IsMap {
+		return t.Map.Name
+	}
+	if t.IsArray {
+		return t.Array.Name
+	}
+	if t.IsStruct {
+		return t.Struct.Name
+	}
+	panic("bad type")
+}
+
+func (t *Type) String(imports *ImportMap) string {
+	if t.IsScalar {
+		return t.Scalar.String(imports)
 	} else if t.IsPointer {
-		return t.Pointer.String(name, imports)
+		return t.Pointer.String(imports)
 	} else if t.IsMap {
-		return t.Map.String(name, imports)
+		return t.Map.String(imports)
 	} else if t.IsArray {
-		return t.Array.String(name, imports)
+		return t.Array.String(imports)
 	} else if t.IsStruct {
-		return t.Struct.String(name, imports)
+		return t.Struct.String(imports)
 	} else {
 		panic("invalid type")
 	}
