@@ -5,4 +5,6 @@ type Package struct {
 	Decls []Decl
 }
 
-func ReadPackage(path string) (*Package, error)
+func ReadPackage(path string) (*Package, error) {
+	panic("not implemented")
+}
