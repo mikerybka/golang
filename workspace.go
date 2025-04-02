@@ -2,6 +2,7 @@ package golang
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 
@@ -32,6 +33,7 @@ func (w *Workspace) Init() error {
 
 func (w *Workspace) Build(pkg string, outFile string) error {
 	cmd := exec.Command("go", "build", "-o", outFile, pkg)
+	cmd.Env = os.Environ()
 	cmd.Dir = w.Dir
 	out, err := cmd.CombinedOutput()
 	if err != nil {
