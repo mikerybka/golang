@@ -3,13 +3,24 @@ package golang
 import (
 	"fmt"
 	"os/exec"
+	"path/filepath"
+
+	"github.com/mikerybka/util"
 )
 
 type Workspace struct {
 	Dir string
 }
 
+func (w *Workspace) initialized() bool {
+	path := filepath.Join(w.Dir, "go.work")
+	return util.Exists(path)
+}
+
 func (w *Workspace) Init() error {
+	if w.initialized() {
+		return nil
+	}
 	cmd := exec.Command("go", "work", "init")
 	cmd.Dir = w.Dir
 	out, err := cmd.CombinedOutput()
