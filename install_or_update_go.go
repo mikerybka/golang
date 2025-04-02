@@ -2,20 +2,20 @@ package golang
 
 import "github.com/mikerybka/util"
 
-func InstallOrUpdateGo() error {
+func InstallOrUpdateGo() (bool, error) {
 	installedVersion, err := util.GetInstalledGoVersion()
 	if err != nil {
 		if err.Error() == "exec: \"go\": executable file not found in $PATH" {
-			return InstallGo()
+			return true, InstallGo()
 		}
-		return err
+		return false, err
 	}
 	latestVersion, err := util.GetLatestGoVersion()
 	if err != nil {
-		return err
+		return false, err
 	}
 	if installedVersion != latestVersion {
-		return UpdateGo()
+		return true, UpdateGo()
 	}
-	return nil
+	return false, nil
 }
