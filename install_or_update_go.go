@@ -5,10 +5,7 @@ import "github.com/mikerybka/util"
 func InstallOrUpdateGo() (bool, error) {
 	installedVersion, err := util.GetInstalledGoVersion()
 	if err != nil {
-		if err.Error() == "exec: \"go\": executable file not found in $PATH" {
-			return true, InstallGo()
-		}
-		return false, err
+		return true, InstallGo()
 	}
 	latestVersion, err := util.GetLatestGoVersion()
 	if err != nil {
